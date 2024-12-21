@@ -175,7 +175,7 @@ namespace Deadfolk.PlanarReflections
         void InitializeCamera()
         {
             // Setup Camera
-            reflectionCamera.cameraType = CameraType.Reflection;
+            reflectionCamera.cameraType = CameraType.Game;
             reflectionCamera.targetTexture = m_RenderTexture;
 
             // Setup AdditionalCameraData
@@ -204,6 +204,10 @@ namespace Deadfolk.PlanarReflections
         {
             // Never render Mirrors for Preview or Reflection cameras
             if(camera.cameraType == CameraType.Preview || camera.cameraType == CameraType.Reflection)
+                return;
+
+            // Custom handling for IconCamera
+            if(camera != Camera.main)
                 return;
 
             // Profiling command
@@ -293,7 +297,7 @@ namespace Deadfolk.PlanarReflections
         Vector4 GetMirrorPlane(Camera camera)
         {
             // Calculate mirror plane in camera space.
-            var pos = transform.position - Vector3.up * 0.1f;
+            var pos = transform.position - Vector3.forward * 0.1f;
             var normal = transform.forward;
             var offsetPos = pos + normal * offest;
             var cpos = camera.worldToCameraMatrix.MultiplyPoint(offsetPos);
