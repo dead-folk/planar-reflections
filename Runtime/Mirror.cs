@@ -218,7 +218,7 @@ namespace Deadfolk.PlanarReflections
 
                 // Test for Descriptor changes
                 var descriptor = GetDescriptor(camera);
-                if(!descriptor.Equals(m_PreviousDescriptor))
+                if(!descriptor.Equals(m_PreviousDescriptor) || m_RenderTexture == null)
                 {
                     // Dispose RenderTexture
                     if(m_RenderTexture != null)
